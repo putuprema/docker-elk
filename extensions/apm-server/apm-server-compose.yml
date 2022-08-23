@@ -14,9 +14,14 @@ services:
       - ./extensions/apm-server/config/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro,Z
     ports:
       - '8200:8200'
+    restart: always
     environment:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
     networks:
       - elk
     depends_on:
       - elasticsearch
+    deploy:
+      resources:
+        limits:
+          memory: 512M
